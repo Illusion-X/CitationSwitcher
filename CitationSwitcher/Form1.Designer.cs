@@ -215,7 +215,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.Name = "Form1";
-            this.Text = "CitationSwitcher v.0.9";
+            this.Text = "CitationSwitcher v.0.2.1";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
