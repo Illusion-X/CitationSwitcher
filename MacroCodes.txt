@@ -1,0 +1,36 @@
+Sub CitationSwitcher()
+    Dim xFind As String
+    Dim xReplace As String
+    Dim xFindArr, xReplaceArr
+    Dim I As Long
+    Application.ScreenUpdating = False
+    
+    Dim FSO As Object, MyFile As Object
+    Dim FileName As String, Arr As Variant
+    
+    FileName = "C:\Users\i-x\Desktop\CFiles\Numbers.txt"
+    Set FSO = CreateObject("Scripting.FileSystemObject")
+    Set MyFile = FSO.OpenTextFile(FileName, 1)
+    xFindArr = Split(MyFile.ReadAll, vbNewLine)
+    
+    FileName = "C:\Users\i-x\Desktop\CFiles\Authors.txt"
+    Set FSO = CreateObject("Scripting.FileSystemObject")
+    Set MyFile = FSO.OpenTextFile(FileName, 1)
+    xReplaceArr = Split(MyFile.ReadAll, vbNewLine)
+    
+    If UBound(xFindArr) <> UBound(xReplaceArr) Then
+        MsgBox "Find and replace characters must be equal.", vbInformation, "Citation Switcher for Word"
+        Exit Sub
+    End If
+    For I = 0 To UBound(xFindArr)
+        Selection.HomeKey Unit:=wdStory
+        With Selection.Find
+            .Text = xFindArr(I)
+            .Replacement.Text = xReplaceArr(I)
+            .Wrap = wdFindContinue
+            .MatchWholeWord = False
+            .Execute Replace:=wdReplaceAll
+        End With
+    Next
+    Application.ScreenUpdating = True
+End Sub
